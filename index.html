@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HNG Profile Card</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main>
+    <article data-testid="test-profile-card" class="profile-card">
+      <header class="pc-header" aria-label="profile header">
+        <h2 data-testid="test-user-name">Your Name</h2>
+        <p data-testid="test-user-bio">Short bio about you goes here.</p>
+      </header>
+
+      <div class="pc-body">
+        <figure class="pc-avatar">
+          <img data-testid="test-user-avatar" src="assets/default-avatar.png" alt="User avatar">
+          <figcaption class="sr-only">User avatar</figcaption>
+        </figure>
+
+        <section class="pc-meta">
+          <div class="time">
+            <strong>Time (ms):</strong>
+            <span data-testid="test-user-time" id="user-time">0</span>
+          </div>
+
+          <nav aria-label="social links" data-testid="test-user-social-links">
+            <ul class="social-list">
+              <li><a data-testid="test-user-social-github" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a data-testid="test-user-social-twitter" href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+            </ul>
+          </nav>
+
+          <section aria-labelledby="hobbies">
+            <h3 id="hobbies">Hobbies</h3>
+            <ul data-testid="test-user-hobbies">
+              <li>Hobby 1</li>
+              <li>Hobby 2</li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="dislikes">
+            <h3 id="dislikes">Dislikes</h3>
+            <ul data-testid="test-user-dislikes">
+              <li>Dislike 1</li>
+              <li>Dislike 2</li>
+            </ul>
+          </section>
+
+          <!-- optional UI to change avatar -->
+          <div class="avatar-controls">
+            <input id="avatarUrl" type="url" placeholder="Paste image URL">
+            <button id="useUrl">Use URL</button>
+            <input id="avatarFile" type="file" accept="image/*" aria-label="Upload avatar">
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
