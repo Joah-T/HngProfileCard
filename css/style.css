@@ -1,0 +1,28 @@
+:root{ --gap:16px; --card-bg:#fff; --border:#e5e7eb; --radius:12px; --shadow:0 6px 18px rgba(0,0,0,0.06); }
+*{box-sizing:border-box}
+.profile-card{max-width:1206px;width:100%;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:120px 19px}
+body{font-family:system-ui,Arial,Helvetica,sans-serif;background:#f3f4f6;padding:24px;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.pc-body{display:flex;flex-direction:column;gap:var(--gap);align-items:flex-start}
+.pc-avatar img{width:126px;height:126px;object-fit:cover;border-radius:10px;border:1px solid var(--border)}
+.pc-meta{flex:1;width:100%}
+.time{margin-bottom:8px}
+.social-list{display:flex;gap:12px;padding:0;margin:8px 0}
+.profile-card ul{list-style:none;padding-left:0;margin:0}
+.social-list a{display:inline-block;padding:6px 8px;border-radius:6px;text-decoration:none}
+a:focus,button:focus,input:focus{outline:3px solid Highlight;outline-offset:2px}
+
+/* larger screens: avatar left, content right */
+@media(min-width:720px){
+  /* switch to grid so avatar can span full height of the card */
+  .pc-body{display:grid;grid-template-columns:33.333% 66.667%;gap:18px;align-items:start}
+
+  /* avatar column: occupy full left column and stretch vertically */
+  .pc-avatar{grid-column:1 / 2;grid-row:1 / -1;align-self:stretch}
+  .pc-avatar img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+
+  /* header and meta stack in the right column */
+  .pc-header{grid-column:2 / 3}
+  .pc-meta{grid-column:2 / 3;display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+  .pc-meta > *{text-align:left}
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
