@@ -353,8 +353,18 @@ body{
   body { padding: 0 16px; align-items: flex-start; }
 
   /* Avatar area: keep image responsive and add modest bottom space */
-  .pc-avatar { padding: 12px; }
-  .pc-avatar img { width: 100%; height: auto; max-width: none; object-fit: cover; display: block; max-height: 220px; }
+  /* remove padding/border on mobile so avatar can fill its space */
+  .pc-avatar { padding: 0; margin: 0; }
+  .pc-avatar img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: top center; /* ensure top half is visible on mobile */
+    display: block;
+    border-radius: 0; /* remove rounded corners on mobile */
+    box-shadow: none;  /* remove shadow/border effect */
+  }
 
   /* Header and meta spacing: tighten for mobile */
   .pc-header { padding: 10px; gap: 8px; }
@@ -383,6 +393,9 @@ body{
     scrollbar-width: none;
   }
   .profile-card::-webkit-scrollbar { width: 0; height: 0; }
+
+  /* Add 1rem gap between header and meta on mobile */
+  .pc-meta { padding-top: 0.6rem; }
 
   /* Slightly reduce meta heading & text size to help fit */
   .pc-meta h3 { font-size: 1.05rem; }

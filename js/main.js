@@ -26,6 +26,47 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof startStylizedClock === 'function') startStylizedClock();
 });
 
+// Truncate bio to first sentence on small screens (<=719px). Restore on larger viewports.
+(function setupResponsiveBio() {
+  const bioEl = document.querySelector('[data-testid="test-user-bio"]');
+  if (!bioEl) return;
+  const fullText = bioEl.textContent.trim();
+
+  // helper: return first n sentences that end with a full stop ('.')
+  function firstNSentences(text, n) {
+    const matches = text.match(/[^.]*\./g);
+    if (!matches) return text;
+    return matches.slice(0, n).join('').trim();
+  }
+
+  const twoSentences = firstNSentences(fullText, 2);
+
+  function applyTruncate() {
+    if (window.matchMedia('(max-width: 719px)').matches) {
+      const span = bioEl.querySelector('span');
+      if (span) {
+        const spanText = span.textContent.trim();
+        // If the twoSentences starts with the span text, remove that portion to avoid duplication
+        let remaining = twoSentences;
+        if (remaining.indexOf(spanText) === 0) {
+          remaining = remaining.slice(spanText.length).trim();
+          // strip a leading punctuation/space if present
+          if (remaining.charAt(0) === '.' || remaining.charAt(0) === ',') remaining = remaining.slice(1).trim();
+        }
+        // Reconstruct with preserved span element followed by the remaining truncated text
+        bioEl.innerHTML = span.outerHTML + (remaining ? ' ' + remaining : '');
+      } else {
+        bioEl.textContent = twoSentences;
+      }
+    } else {
+      bioEl.textContent = fullText;
+    }
+  }
+
+  applyTruncate();
+  window.addEventListener('resize', applyTruncate);
+})();
+
 /* Stylized clock with scramble animation (keeps same semantics as provided) */
 function startStylizedClock() {
   const el = document.querySelector('[data-testid="test-user-time"]');
