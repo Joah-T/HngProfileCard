@@ -1,28 +1,404 @@
-:root{ --gap:16px; --card-bg:#fff; --border:#e5e7eb; --radius:12px; --shadow:0 6px 18px rgba(0,0,0,0.06); }
-*{box-sizing:border-box}
-.profile-card{max-width:1206px;width:100%;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:120px 19px}
-body{font-family:system-ui,Arial,Helvetica,sans-serif;background:#f3f4f6;padding:24px;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.pc-body{display:flex;flex-direction:column;gap:var(--gap);align-items:flex-start}
-.pc-avatar img{width:126px;height:126px;object-fit:cover;border-radius:10px;border:1px solid var(--border)}
-.pc-meta{flex:1;width:100%}
-.time{margin-bottom:8px}
-.social-list{display:flex;gap:12px;padding:0;margin:8px 0}
-.profile-card ul{list-style:none;padding-left:0;margin:0}
-.social-list a{display:inline-block;padding:6px 8px;border-radius:6px;text-decoration:none}
-a:focus,button:focus,input:focus{outline:3px solid Highlight;outline-offset:2px}
-
-/* larger screens: avatar left, content right */
-@media(min-width:720px){
-  /* switch to grid so avatar can span full height of the card */
-  .pc-body{display:grid;grid-template-columns:33.333% 66.667%;gap:18px;align-items:start}
-
-  /* avatar column: occupy full left column and stretch vertically */
-  .pc-avatar{grid-column:1 / 2;grid-row:1 / -1;align-self:stretch}
-  .pc-avatar img{width:100%;height:100%;object-fit:cover;border-radius:10px}
-
-  /* header and meta stack in the right column */
-  .pc-header{grid-column:2 / 3}
-  .pc-meta{grid-column:2 / 3;display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
-  .pc-meta > *{text-align:left}
+:root{
+  --max-w: 1200px;
+  --radius: 32px;
+  --primary: #FF7A2B; /* metallic orange */
+  --accent: #2E1B2E;  /* deep gunmetal */
+  --secondary: #2E1B2E;
+  --surface: #FFFFFF;
+  --soft-bg: #F4F6F8;
+  --muted: #6B7280;
+  --shadow: 0 10px 30px rgba(12,15,20,0.06);
+  --gap: 18px;
+  --pad: 28px;
+  --focus: rgba(46,27,46,0.16);
 }
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* Import fonts (Poppins will be applied to headers at medium and up) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Import Work Sans for smaller text (bio, list items) */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Google Fonts import (Orbitron for clock) */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+/* ===== Base reset ===== */
+* { box-sizing: border-box; }
+html,body { height: 100%; }
+/* responsive root font-size so rems scale on tablet/phone */
+html { font-size: clamp(14px, 1.2vw + 12px, 16px); }
+body{
+  margin: 0;
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: var(--soft-bg);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  color: var(--muted);
+  padding: 36px;
+  /* prevent vertical scrollbar for this single-card layout */
+  overflow-y: hidden;
+}
+
+/* ===== Card root ===== */
+.profile-card {
+  width: 100%;
+  max-width: var(--max-w);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: transparent;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* allow rows to grow but never exceed viewport height; this helps content fit */
+  grid-auto-rows: minmax(0, auto);
+  gap: 0;
+  /* remove outer padding and set explicit card height: ~75% of viewport plus 240px */
+  padding: 0;
+  /* don't fix height; constrain to viewport and allow internal scroll when necessary */
+  max-height: 100vh;
+  overflow: auto;
+  border-radius: var(--radius);
+}
+
+/* Make the card centered in the viewport (already done by body) and ensure vertical centering on taller viewports */
+@media (min-height: 600px) {
+  body { align-items: center; }
+}
+
+/* Make .pc-body transparent for layout — expose its children to parent grid */
+.pc-body {
+  display: contents;
+}
+
+/* ===== Left column: avatar (grid item) ===== */
+.pc-header {
+  grid-column: 1;
+  grid-row: 2;
+  background: var(--surface);
+  /* reduced padding so header wrapper is smaller */
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.pc-avatar img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  display: block;
+}
+
+/* ===== Right column: header + meta (grid items) ===== */
+.pc-header {
+  grid-column: 1;
+  grid-row: 2;
+  background: var(--surface);
+  /* consistent padding around header */
+  padding: 32px 16px;
+  /* layout children vertically with controlled gap between name and bio */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.pc-meta {
+  grid-column: 1;
+  grid-row: 3;
+  background: var(--surface);
+  /* uniform padding around meta */
+  padding: 36px;
+  /* ensure its children (social links, hobbies, dislikes) have a large vertical gap */
+  /* we use margins on direct children to avoid disturbing internal grids */
+}
+
+.pc-meta > * { margin-bottom: 20px; }
+.pc-meta > *:last-child { margin-bottom: 0; }
+
+/* Header typography */
+.pc-header h2 {
+  margin: 0 0 6px 0;
+  color: var(--primary);
+  font-size: 2.2rem;
+  line-height: 1.06;
+  font-weight: 700;
+}
+
+
+.pc-header p {
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  font-family: 'Work Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-weight: 400;
+}
+
+/* style the inline leading span in the bio like headers and add underline */
+.pc-header p span {
+  display: inline-block;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: underline;
+  margin-bottom: 8px;
+}
+
+/* small quote style (optional) */
+.pc-header .quote {
+  margin-top: 8px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Info grid inside pc-meta — single column mobile, two columns on wide */
+.pc-meta .info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px 28px;
+  margin-top: 12px;
+}
+
+/* section headings */
+.pc-meta h3 {
+  margin: 0 0 8px 0;
+  color: var(--muted);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+
+/* lists and text */
+.pc-meta p, .pc-meta li {
+  margin: 0;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  font-family: 'Work Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-weight: 500;
+}
+
+.pc-meta ul {
+  margin: 0;
+  padding-left: 18px;
+  list-style: none; /* remove bullets */
+  /* even vertical spacing for list items */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-list {
+  display:flex;
+  gap:12px;
+  padding:0;
+  margin:0;
+  list-style:none;
+  justify-content:center;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* allow social links to wrap on narrow viewports */
+.social-list {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Ensure social lists inside .pc-meta override the general .pc-meta ul (which sets column layout) */
+.pc-meta ul.social-list {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+}
+.social-list a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 12px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:13px;
+  color:var(--accent);
+  border:1px solid rgba(59,15,116,0.06);
+  background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.social-list a:hover{ transform: translateY(-3px); box-shadow: 0 6px 18px rgba(59,15,116,0.06); }
+
+/* Meta line for time */
+.time {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  color:var(--muted);
+  padding: 22px 0; /* increased by 20px total (was 12px) to give more vertical space */
+}
+
+.time [data-testid="test-user-time"] {
+  display:block;
+  width:100%;
+  height: 100%; /* stretch to fill available width */
+  text-align:center;
+  font-weight:600; /* heavier weight */
+  font-size:1.15rem; /* slightly larger to occupy space */
+}
+
+
+/* Stylized clock styling for [data-testid="test-user-time"] */
+[data-testid="test-user-time"] {
+  font-family: 'Orbitron', monospace;
+  font-weight: 500;
+  /* enlarged by ~10% */
+  font-size: 2rem;
+  letter-spacing: 0.8px;
+  color: var(--primary);
+  text-align: center;
+  min-width: 160px;
+  display: inline-block;
+  transition: opacity 180ms ease, transform 220ms ease;
+  will-change: opacity, transform;
+}
+
+/* Scramble state: subtle fade + pop */
+[data-testid="test-user-time"].scramble {
+  animation: scrambleFade 1000ms ease-in-out;
+}
+
+/* small subtle keyframe for the fade/pop */
+@keyframes scrambleFade {
+  0%   { opacity: 0.15; transform: translateY(-6px) scale(0.98); filter: blur(1.6px); }
+  50%  { opacity: 1;    transform: translateY(0px)  scale(1.02); filter: blur(0.4px); }
+  100% { opacity: 1;    transform: translateY(0px)  scale(1);    filter: blur(0); }
+}
+
+/* ===== Large screen layout adjustments ===== */
+@media (min-width: 720px) {
+  .profile-card {
+    /* left avatar column + two right columns for header and meta */
+    grid-template-columns: 33.3333% 1fr 1fr;
+    grid-template-rows: 1fr; /* single row, columns fill height */
+  }
+
+  .pc-avatar {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    /* remove padding so the avatar image can touch the column edges */
+    padding: 0;
+    margin: 0;
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* make avatar image fill the available column height on large screens */
+  .pc-avatar img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pc-header {
+    /* place header in the first right column */
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    padding: 32px;
+    /* keep flex so gap works at large sizes */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* apply imported Poppins font to header and section headings on medium+ screens */
+  .pc-header h2,
+  .pc-meta h3 {
+    font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    font-weight: 600;
+  }
+
+  .pc-meta {
+    /* place meta in the second right column */
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    /* keep consistent padding on large screens */
+    padding: 36px;
+  }
+
+  .pc-meta .info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ===== Mobile: stacked look (default) adjustments ===== */
+@media (max-width: 719px) {
+  /* body adjustments so card margin takes effect */
+  body { padding: 0 16px; align-items: flex-start; }
+
+  /* Avatar area: keep image responsive and add modest bottom space */
+  .pc-avatar { padding: 12px; }
+  .pc-avatar img { width: 100%; height: auto; max-width: none; object-fit: cover; display: block; max-height: 220px; }
+
+  /* Header and meta spacing: tighten for mobile */
+  .pc-header { padding: 10px; gap: 8px; }
+  .pc-meta { padding: 10px; }
+  .pc-meta > * { margin-bottom: 12px; }
+
+  /* Social links wrap and center */
+  .social-list { flex-wrap: wrap; gap: 8px; justify-content: center; }
+
+  /* Typography adjustments to remain legible while compact */
+  .pc-header h2 { font-size: 1.2rem; font-weight: 500; margin: 0 0 4px 0; }
+  .pc-header p { font-size: 0.92rem; }
+  .pc-header p span { font-size: 1.2rem; font-weight: 400; text-decoration: underline; color: inherit; display:inline-block; margin-bottom:4px; }
+
+  /* Time area */
+  .time { padding: 8px 0; }
+  .time [data-testid="test-user-time"] { font-size: 1rem; font-weight: 600; }
+
+  /* Ensure the card has breathing room and fits the viewport. Allow touch scrolling if needed, with hidden scrollbars. */
+  .profile-card {
+    margin: 36px 0;
+    max-height: calc(100vh - 72px);
+    overflow: auto; /* enable touch scroll */
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .profile-card::-webkit-scrollbar { width: 0; height: 0; }
+
+  /* Slightly reduce meta heading & text size to help fit */
+  .pc-meta h3 { font-size: 1.05rem; }
+  .pc-meta p, .pc-meta li { font-size: 0.9rem; }
+}
+
+/* Focus styles for keyboard users */
+a:focus, button:focus, input:focus {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* small helper for sr-only */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
