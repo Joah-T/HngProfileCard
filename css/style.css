@@ -54,6 +54,26 @@ body{
   overflow-y: hidden;
 }
 
+/* About page: allow scrolling but hide scrollbars visually */
+main[data-testid="test-about-page"] {
+  max-height: calc(100vh - 72px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+main[data-testid="test-about-page"]::-webkit-scrollbar { width: 0; height: 0; }
+
+/* Ensure about & contact pages use Poppins and Work Sans appropriately */
+main[data-testid="test-about-page"] h1,
+main[data-testid="test-about-page"] h2 { font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-weight: 700; }
+main[data-testid="test-about-page"] p,
+main[data-testid="test-about-page"] li { font-family: 'Work Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+/* Contact page header + subtext fonts */
+/* contact-specific styles are in contact.css, but we ensure defaults here as well */
+main .contact-card h2 { font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-weight:700; }
+main .contact-card, main .contact-card p, main .contact-card li { font-family: 'Work Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
 /* ===== Card root ===== */
 .profile-card {
   width: 100%;
@@ -73,6 +93,12 @@ body{
   max-height: 100vh;
   overflow: auto;
   border-radius: var(--radius);
+}
+
+/* subtle white-tinted shadow in dark mode focused bottom-right for profile card */
+:root[data-theme='dark'] .profile-card{
+  box-shadow: 10px 12px 28px rgba(255,255,255,0.04), 18px 22px 40px rgba(255,255,255,0.08) inset;
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 /* Make the card centered in the viewport (already done by body) and ensure vertical centering on taller viewports */

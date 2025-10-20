@@ -9,44 +9,144 @@
     <link rel="stylesheet" href="css/about.css">
 </head>
 <body>
-    <main data-testid="test-about-page" class="page-wrapper">
-        <button id="themeToggle" aria-label="Toggle color theme" title="Toggle theme">🌓</button>
-        <header><h1>About Me</h1></header>
+  <main data-testid="test-about-page" class="page-wrapper">
+    <button id="themeToggle" aria-label="Toggle color theme" title="Toggle theme">🌓</button>
+    
+     <aside class="about-left" aria-hidden="false">
+      <figure class="about-avatar" aria-hidden="false">
+        <img data-testid="test-user-avatar" src="assets/avatar.jpg" alt="Portrait of Joshua Noah">
+      </figure>
 
-        <section data-testid="test-about-bio">
-            <h2>Bio</h2>
-            <p>Joshua Noah is a frontend engineer who builds high-performance, accessible web interfaces.</p>
-        </section>
+      <!-- prominent time below avatar -->
+      <div class="about-clock" role="status" aria-live="polite">
+        <div class="about-time" data-testid="test-user-time">--:--:--,---</div>
+      </div>
+    </aside>
 
-        <section data-testid="test-about-goals">
-            <h2>Goals in this program</h2>
-            <ul><li>Master React Hooks</li><li>Build scalable microservices</li></ul>
-        </section>
+    <header class="about-header">
+        <h1>About Me</h1>
+        <p class="lead">A short professional summary and reflective notes on goals, gaps, and future direction.</p>
+    </header>
 
-        <section data-testid="test-about-confidence">
-            <h2>Areas of low confidence</h2>
-            <ul><li>Advanced CSS animations</li><li>Backend architectures</li></ul>
-        </section>
+    <!-- Bio -->
+    <section data-testid="test-about-bio" aria-labelledby="about-bio-heading">
+        <h2 id="about-bio-heading">Bio</h2>
+        <p>
+            Joshua Noah is a frontend engineer and product-minded designer who specializes in building performant,
+            accessible web interfaces that combine thoughtful motion with pragmatic engineering. He focuses on
+            animation-forward, CMS-enabled websites and dashboard experiences that scale from prototypes to production.
+            Joshua approaches every project with a product-first mindset, prioritizing clarity of purpose, measurable
+            outcomes, and maintainable code.
+        </p>
+        <p>
+            He enjoys turning complex interactions into clear, delightful experiences — whether that’s an elegant
+            microinteraction, a fast-loading landing page, or a data-rich analytics view. Joshua documents his process
+            through concise content (short videos, threads, and case studies) to showcase craftsmanship and attract
+            collaborators and clients. Outside of work, he is an avid sports-car enthusiast and a disciplined
+            strength-training practitioner — interests that feed his taste for precision, performance, and design.
+        </p>
+    </section>
 
-        <section data-testid="test-about-future-note">
-            <h2>Note to future self</h2>
-            <p>Keep shipping and learning backend fundamentals.</p>
-        </section>
+    <!-- Goals -->
+    <section data-testid="test-about-goals" aria-labelledby="about-goals-heading">
+        <h2 id="about-goals-heading">Goals in this program</h2>
+        <ul>
+            <li>
+                <strong>Ship high-quality, user-focused features quickly.</strong>
+                Deliver at least two production-ready front-end projects that demonstrate best practices in accessibility,
+                performance, and animation. Each project will include a short case study explaining the technical choices
+                and business impact.
+            </li>
+            <li>
+                <strong>Deepen practical React and state-management expertise.</strong>
+                Reach a confident working level with modern React idioms (hooks, context, composition) and one supporting
+                library. Build a small, testable component library or pattern set that can be reused across projects.
+            </li>
+            <li>
+                <strong>Master front-end architecture for CMS-driven sites.</strong>
+                Architect frontends that integrate cleanly with headless CMS platforms, deliver fast cache-friendly pages,
+                and include progressive enhancement and SEO-friendly markup.
+            </li>
+            <li>
+                <strong>Demonstrate a growth-minded portfolio & content system.</strong>
+                Create a repeatable content workflow for sharing project highlights (reels, threads, short tutorials)
+                to attract leads and measure engagement over time.
+            </li>
+            <li>
+                <strong>Ship a marketable prototype for a startup idea.</strong>
+                Progress one selected idea to a demo/prototype suitable for early feedback and initial outreach.
+            </li>
+        </ul>
+    </section>
 
-        <section data-testid="test-about-extra">
-            <h2>Extra thoughts</h2>
-            <p>Extra reflections here.</p>
-        </section>
+    <!-- Areas of low confidence -->
+    <section data-testid="test-about-confidence" aria-labelledby="about-confidence-heading">
+        <h2 id="about-confidence-heading">Areas of low confidence</h2>
+        <p>I’m deliberately transparent about the skills I want to accelerate. Current focus areas include:</p>
+        <ul>
+            <li>
+                <strong>Advanced CSS animations and performant motion systems.</strong>
+                I can deliver polished interactions, but I want to deepen my knowledge of choreography that remains smooth
+                across devices (timing functions, compositing rules, GPU-safe patterns).
+            </li>
+            <li>
+                <strong>Backend architecture and scalable APIs.</strong>
+                I understand frontend needs but am growing practical experience in designing resilient microservices and
+                data models for production.
+            </li>
+            <li>
+                <strong>Large-scale state management and testing strategies.</strong>
+                I am consolidating patterns for state that scale and expanding coverage with unit, integration, and E2E tests.
+            </li>
+            <li>
+                <strong>Pitching and product storytelling for investors.</strong>
+                I want more polish in narratives tailored to non-technical stakeholders and potential investors.
+            </li>
+        </ul>
+        <p>
+            For each gap I maintain short, measurable learning sprints combining focused projects, readings, and hands-on
+            practice with regular progress reviews.
+        </p>
+    </section>
 
-        <div class="bottom-nav-wrap">
-            <nav class="bottom-nav" aria-label="main navigation">
+    <!-- Note to future self -->
+    <section data-testid="test-about-future-note" aria-labelledby="about-future-heading">
+        <h2 id="about-future-heading">Note to future self</h2>
+        <p>
+            Keep shipping and protect the craft. In six months, verify these measurable wins:
+        </p>
+        <ul>
+            <li>Two portfolio projects that show real user impact (performance gains, conversion improvements, client feedback).</li>
+            <li>A reusable component/pattern library that is lightweight and easy to adopt.</li>
+            <li>A public content streak: consistent, high-quality posts or reels that drive engagement.</li>
+            <li>A working prototype of one startup idea with a concise pitch and early user feedback.</li>
+        </ul>
+        <p>
+            When things feel busy, prioritize incremental progress and documenting lessons as short posts — teaching accelerates learning.
+            Reserve time for fundamentals (layout, JS patterns, testing), and lean on mentors when scaling knowledge quickly.
+        </p>
+    </section>
+
+    <!-- Extra thoughts -->
+    <section data-testid="test-about-extra" aria-labelledby="about-extra-heading">
+        <h2 id="about-extra-heading">Extra thoughts</h2>
+        <p><strong>Design meets engineering:</strong> My best work is produced when design constraints are treated as engineering constraints,
+            and engineering choices honor the user experience. I aim to balance pixel care with maintainability.</p>
+        <p><strong>Content as evidence:</strong> Content that reveals process (decisions, trade-offs, before/after metrics) converts better than final-only showcases.
+            Continue producing short artifacts that explain how problems were solved.</p>
+        <p><strong>Startup mindset:</strong> Begin with a narrow, testable hypothesis and iterate with real users to keep scope manageable and surface true product-market signals.</p>
+        <p><strong>Tools & workflow:</strong> Favor workflows that accelerate iteration: fast local dev, simple deploys, and minimal analytics to validate experiments.
+            Prefer tooling that outputs real, testable code and accessible components.</p>
+    </section>
+
+    <div class="bottom-nav-wrap">
+        <nav class="bottom-nav" aria-label="main navigation">
             <a href="index.html" class="nav-link">Profile</a>
             <a href="contact.html" class="nav-link">Contact</a>
             <a href="about.html" class="nav-link">About Me</a>
-            </nav>
-        </div>
-    </main>
-
+        </nav>
+    </div>
+ </main>
 
   <script src="js/main.js"></script>
   <script src="js/theme.js"></script>

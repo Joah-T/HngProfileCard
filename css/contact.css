@@ -1,9 +1,214 @@
-/* contact.css */
-.contact-card{width:100%;max-width:720px;border-radius:12px;background:var(--surface);padding:20px;box-shadow:var(--shadow)}
-.contact-card h2{font-family:Outfit, sans-serif;color:var(--accent)}
-form{display:grid;gap:12px}
-label{font-weight:600;font-size:13px}
-input,textarea{padding:10px;border:1px solid #e6e9ef;border-radius:8px;font-size:14px;background:transparent}
-#contactForm button{background:var(--primary);color:white;padding:10px 14px;border-radius:8px;border:0;cursor:pointer}
-.err{color:#b0402b;font-size:13px;margin-top:6px}
-[hidden]{display:none}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Work+Sans:wght@300;400;500;700&family=Orbitron:wght@400;500;700&display=swap');
+
+/* Contact card base */
+.contact-card {
+  width: 100%;
+  max-width: 720px;
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.contact-card h2 {
+  font-family: 'Poppins', 'Outfit', sans-serif;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+form { display: grid; gap: 12px; }
+label { font-weight: 600; font-size: 13px; }
+
+/* use Work Sans for inputs and form text */
+.contact-card, .contact-card p, .contact-card li, form, input, textarea {
+  font-family: 'Work Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #e6e9ef;
+  border-radius: 8px;
+  font-size: 14px;
+  background: transparent;
+}
+
+#contactForm button {
+  background: var(--primary);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+}
+
+.err { color: #b0402b; font-size: 13px; margin-top: 6px; }
+[hidden] { display: none; }
+
+/* Toast sizing & font */
+/* make toast wide enough to display full text, up to a comfortable max-width */
+.toast {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  width: min(92vw, 820px);
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--secondary);
+  box-shadow: var(--shadow);
+  z-index: 9999;
+  opacity: 0;
+  overflow: hidden;
+}
+.toast .toast-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+}
+
+/* entry: fade in and grow slightly, then settle back to final size */
+.toast--enter { animation: toastIn 620ms cubic-bezier(.2,.9,.2,1) forwards; }
+@keyframes toastIn {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.78); }
+  60% { opacity: 1; transform: translateX(-50%) scale(1.12); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+/* exit: fade out & lift */
+.toast--exit { animation: toastOut 360ms ease forwards; }
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(-50%) scale(1); }
+  to { opacity: 0; transform: translateX(-50%) scale(0.9) translateY(-8px); }
+}
+
+/* Ensure inputs are readable in dark mode */
+:root[data-theme='dark'] input,
+:root[data-theme='dark'] textarea,
+:root[data-theme='dark'] select {
+  color: #ffffff;
+}
+
+/* Also make placeholder text visible in dark theme */
+:root[data-theme='dark'] input::placeholder,
+:root[data-theme='dark'] textarea::placeholder {
+  color: rgba(255,255,255,0.64);
+}
+
+/* subtle white-tinted shadow in dark mode */
+:root[data-theme='dark'] .contact-card {
+  box-shadow: 10px 12px 28px rgba(255,255,255,0.04), 18px 22px 40px rgba(255,255,255,0.08) inset;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Work+Sans:wght@300;400;500;700&family=Orbitron:wght@400;500;700&display=swap');
+
+/* Contact card base */
+.contact-card {
+  width: 100%;
+  max-width: 720px;
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.contact-card h2 {
+  font-family: 'Poppins', 'Outfit', sans-serif;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+form { display: grid; gap: 12px; }
+label { font-weight: 600; font-size: 13px; }
+
+/* use Work Sans for inputs and form text */
+.contact-card, .contact-card p, .contact-card li, form, input, textarea {
+  font-family: 'Work Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #e6e9ef;
+  border-radius: 8px;
+  font-size: 14px;
+  background: transparent;
+}
+
+#contactForm button {
+  background: var(--primary);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+}
+
+.err { color: #b0402b; font-size: 13px; margin-top: 6px; }
+[hidden] { display: none; }
+
+/* Toast sizing & font */
+/* make toast wide enough to display full text, up to a comfortable max-width */
+.toast {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  width: min(92vw, 820px);
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--secondary);
+  box-shadow: var(--shadow);
+  z-index: 9999;
+  opacity: 0;
+  overflow: hidden;
+}
+.toast .toast-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+}
+
+/* entry: fade in and grow slightly, then settle back to final size */
+.toast--enter { animation: toastIn 620ms cubic-bezier(.2,.9,.2,1) forwards; }
+@keyframes toastIn {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.78); }
+  60% { opacity: 1; transform: translateX(-50%) scale(1.12); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+/* exit: fade out & lift */
+.toast--exit { animation: toastOut 360ms ease forwards; }
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(-50%) scale(1); }
+  to { opacity: 0; transform: translateX(-50%) scale(0.9) translateY(-8px); }
+}
+
+/* Ensure inputs are readable in dark mode */
+:root[data-theme='dark'] input,
+:root[data-theme='dark'] textarea,
+:root[data-theme='dark'] select {
+  color: #ffffff;
+}
+
+/* Also make placeholder text visible in dark theme */
+:root[data-theme='dark'] input::placeholder,
+:root[data-theme='dark'] textarea::placeholder {
+  color: rgba(255,255,255,0.64);
+}
+
+/* subtle white-tinted shadow in dark mode */
+:root[data-theme='dark'] .contact-card {
+  box-shadow: 10px 12px 28px rgba(255,255,255,0.04), 18px 22px 40px rgba(255,255,255,0.08) inset;
+  border: 1px solid rgba(255,255,255,0.04);
+}
