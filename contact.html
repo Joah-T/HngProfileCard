@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact</title>
+  <link rel="stylesheet" href="css/contact.css" />
+  <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+  <main data-testid="contact-form"  class="page-wrapper">
+    <button id="themeToggle" aria-label="Toggle color theme" title="Toggle theme">🌓</button>
+  <article class="contact-card">
+    <h2>Contact</h2>
+    <form id="contactForm" novalidate>
+      <label for="name">Full name</label>
+      <input id="name" name="name" data-testid="test-contact-name" aria-describedby="err-name" required>
+      <div id="err-name" data-testid="test-contact-error-name" aria-live="polite"></div>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" data-testid="test-contact-email" aria-describedby="err-email" required>
+      <div id="err-email" data-testid="test-contact-error-email" aria-live="polite"></div>
+
+      <label for="subject">Subject</label>
+      <input id="subject" name="subject" data-testid="test-contact-subject" aria-describedby="err-subject" required>
+      <div id="err-subject" data-testid="test-contact-error-subject" aria-live="polite"></div>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" data-testid="test-contact-message" aria-describedby="err-message" rows="5" required></textarea>
+      <div id="err-message" data-testid="test-contact-error-message" aria-live="polite"></div>
+
+      <button type="submit" data-testid="test-contact-submit">Send Message</button>
+    </form>
+
+    <div id="contactSuccess" data-testid="test-contact-success" role="status" aria-live="polite" hidden>
+      Thanks — your message was sent. I’ll reply within 48 hours.
+    </div>
+  </article>
+
+  <div class="bottom-nav-wrap">
+    <nav class="bottom-nav" aria-label="main navigation">
+      <a href="index.html" class="nav-link">Profile</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="about.html" class="nav-link">About Me</a>
+    </nav>
+  </div>
+ </main>
+  <script src="js/form.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/common.js"></script>
+</body>
+</html>

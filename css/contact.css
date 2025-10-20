@@ -1,0 +1,9 @@
+/* contact.css */
+.contact-card{width:100%;max-width:720px;border-radius:12px;background:var(--surface);padding:20px;box-shadow:var(--shadow)}
+.contact-card h2{font-family:Outfit, sans-serif;color:var(--accent)}
+form{display:grid;gap:12px}
+label{font-weight:600;font-size:13px}
+input,textarea{padding:10px;border:1px solid #e6e9ef;border-radius:8px;font-size:14px;background:transparent}
+#contactForm button{background:var(--primary);color:white;padding:10px 14px;border-radius:8px;border:0;cursor:pointer}
+.err{color:#b0402b;font-size:13px;margin-top:6px}
+[hidden]{display:none}

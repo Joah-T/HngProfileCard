@@ -4,10 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HNG Profile Card</title>
+  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <main>
+    <button id="themeToggle" aria-label="Toggle color theme" title="Toggle theme">🌓</button>
     <article data-testid="test-profile-card" class="profile-card">
       <header class="pc-header" aria-label="profile header">
         <h2 data-testid="test-user-name">Joshua Noah</h2>
@@ -62,8 +64,17 @@
         </section>
       </div>
     </article>
-  </main>
 
+    <div class="bottom-nav-wrap">
+  <nav class="bottom-nav" aria-label="main navigation">
+    <a href="index.html" class="nav-link">Profile</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+    <a href="about.html" class="nav-link">About Me</a>
+  </nav>
+</div>
+  </main>
+  <script src="js/theme.js"></script>
+  <script src="js/common.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
