@@ -1,0 +1,274 @@
+/* About Page Layout Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Import Work Sans for smaller text (bio, list items) */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Google Fonts import (Orbitron for clock) */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+
+:root{
+  --max-w: 1200px;
+  --radius: 32px;
+  --primary: #FF7A2B; /* metallic orange */
+  --accent: #2E1B2E;  /* deep gunmetal */
+  --secondary: #2E1B2E;
+  --surface: #FFFFFF;
+  --soft-bg: #F4F6F8;
+  --muted: #6B7280;
+  --shadow: 0 10px 30px rgba(12,15,20,0.06);
+  --gap: 18px;
+  --pad: 28px;
+  --focus: rgba(46,27,46,0.16);
+}
+
+.page-wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+}
+
+/* Left sidebar with avatar and clock - Fixed position */
+.about-left {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  z-index: 10;
+}
+
+/* Avatar styling */
+.about-avatar {
+  margin: 0;
+  width: 300px;
+  height: 500px;
+  margin-bottom: 20px;
+}
+
+.about-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* Clock below avatar */
+.about-clock {
+  height: 90px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+}
+
+.about-time {
+  font-size: 2.3rem;
+  font-weight: 600;
+  font-family: 'Orbitron', monospace;
+  text-align: center;
+}
+
+/* Main content area - offset by sidebar width */
+main.page-wrapper {
+  padding-left: 300px;
+  padding-right: 40px;
+  padding-top: 60px;
+  padding-bottom: 100px;
+  max-width: 1200px;
+  display: block;
+}
+
+/* Header styling */
+.about-header {
+  margin-bottom: 40px;
+}
+
+.about-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 12px;
+}
+
+.about-header .lead {
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: 'Work Sans', sans-serif;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* Section styling */
+section {
+  margin-bottom: 50px;
+}
+
+section h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--primary);
+  padding-bottom: 10px;
+}
+
+section p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+section ul {
+  margin-left: 20px;
+  margin-bottom: 16px;
+}
+
+section li {
+  margin-bottom: 16px;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+section li strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Theme toggle button */
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+/* Bottom navigation - adjust position only for desktop */
+.bottom-nav-wrap {
+  left: 300px;
+}
+
+/* Tablet and smaller screens */
+@media (max-width: 1024px) {
+  main.page-wrapper {
+    padding-left: 240px;
+    padding-right: 30px;
+  }
+  
+  .about-left {
+    width: 220px;
+    padding-left: 15px;
+  }
+  
+  .about-avatar {
+    width: 140px;
+    height: 260px;
+  }
+  
+  /* Bottom navigation position adjustment */
+  .bottom-nav-wrap {
+    left: 240px;
+  }
+}
+
+/* Mobile styles - hide avatar/clock, full width content */
+@media (max-width: 768px) {
+  .about-left {
+    display: none;
+  }
+  
+  main.page-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+  
+  .about-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .about-header .lead {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  section p,
+  section li {
+    font-size: 0.95rem;
+  }
+  
+  /* Reset bottom navigation position for mobile */
+  .bottom-nav-wrap {
+    left: 0;
+  }
+  
+  #themeToggle {
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  main.page-wrapper {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .about-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .about-header .lead {
+    font-size: 0.9rem;
+  }
+  
+  section h2 {
+    font-size: 1.3rem;
+  }
+  
+  section p,
+  section li {
+    font-size: 0.9rem;
+  }
+  
+  .bottom-nav {
+    gap: 15px;
+    font-size: 0.9rem;
+  }
+}
